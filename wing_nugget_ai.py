@@ -14,7 +14,6 @@ directory = os.fsencode('.')
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
     if filename.endswith(".png"): 
-        # print(os.path.join(directory, filename))
         im = Image.open(filename)
         rgb_im = im.convert('RGB')
         rgb_im.save(filename[:-3]+'jpg')
@@ -72,12 +71,15 @@ classifier.fit_generator(training_set,
                          validation_data = test_set,
                          validation_steps = 540)
 classifier.save('wing_nugget.h5')
-# Part 3 - Making new predictions
+#%%
+from keras.models import load_model
+classifier = load_model('wing_nugget.h5')
+# Part 3 - Making predictions
 #%%
 import numpy as np
 from keras.preprocessing import image
 #%%
-test_image = image.load_img('dataset/single_prediction/lily.jpg', target_size = (64, 64))
+test_image = image.load_img('dataset/single_prediction/test.jpg', target_size = (64, 64))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 result = classifier.predict(test_image)
