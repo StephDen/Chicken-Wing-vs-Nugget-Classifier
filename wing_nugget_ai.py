@@ -82,7 +82,7 @@ test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 result = classifier.predict(test_image)
 if result[0][0] == 1:
-    prediction = 'dog'
+    prediction = 'wing'
 else:
-    prediction = 'cat'
+    prediction = 'nugget'
 print(prediction)
